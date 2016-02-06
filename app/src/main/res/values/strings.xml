@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Neverwas Play</string>
+    <string name="title_activity_main">Neverwas Play</string>
+    <string name="title_activity_program_detail">ProgramDetail</string>
+    <string name="title_activity_post">Post</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+</resources>
