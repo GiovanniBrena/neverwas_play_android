@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.neverwasradio.neverwasplayer"
-        minSdkVersion 14
+        minSdkVersion 15
         targetSdkVersion 22
         versionCode 2
         versionName "1.1"
@@ -19,10 +19,15 @@ android {
     }
 }
 
+repositories {
+    mavenCentral()
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     // You must install or update the Support Repository through the SDK manager to use this dependency.
     compile 'com.android.support:support-v13:19.+'
     compile files('libs/libGoogleAnalyticsServices.jar')
-    compile files('libs/doresoLib/DoresoSdkV3.3.0.jar')
+    compile 'com.facebook.android:facebook-android-sdk:4.+'
+
 }

@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.facebook.FacebookSdk;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.neverwasradio.neverwasplayer.Core.PlayerService;
 import com.neverwasradio.neverwasplayer.Core.XMLProgramParser;
@@ -43,6 +44,8 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        FacebookSdk.sdkInitialize(getApplicationContext());
 
         // Set up the action bar.
         final ActionBar actionBar = getActionBar();
