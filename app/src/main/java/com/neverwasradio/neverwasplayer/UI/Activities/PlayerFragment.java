@@ -18,10 +18,13 @@ import android.widget.TextView;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.MapBuilder;
 import com.neverwasradio.neverwasplayer.Core.PlayerService;
+import com.neverwasradio.neverwasplayer.Core.StreamingDataLoader;
 import com.neverwasradio.neverwasplayer.R;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
+import static com.neverwasradio.neverwasplayer.UI.Activities.MainActivity.*;
 
 
 public class PlayerFragment extends Fragment {
@@ -48,7 +51,7 @@ public class PlayerFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //PlayerService.initializePlayer();
+
     }
 
     @Override
@@ -86,25 +89,36 @@ public class PlayerFragment extends Fragment {
         playerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!PlayerService.isActive()) {
+                if(!PlayerService.isActive() && (!PlayerService.isLoading()||PlayerService.isReady())) {
 
-                    timeoutBufferTimerTask=new TimeoutBufferTimerTask();
-                    timeoutTimer.schedule(timeoutBufferTimerTask,20000);
+                    //timeoutBufferTimerTask=new TimeoutBufferTimerTask();
+                    //timeoutTimer.schedule(timeoutBufferTimerTask,20000);
 
-                    if(MainActivity.isNetworkConnected(getActivity())) {
+                    if(isNetworkConnected(getActivity())) {
                         if (PlayerService.getPlayerFragment() == null) {
                             PlayerService.setPlayerFragment(thisFragment);
                         }
-                        setLoadingButton();
-                        PlayerService.initializePlayer();
+
+
+                        if(!PlayerService.isReady()) {
+                            setLoadingButton();
+                            //PlayerService.initializePlayer();
+                            StreamingDataLoader dataLoader = new StreamingDataLoader();
+                            dataLoader.execute();
+
+                        }
+                        else{
+                            setPauseButton();
+                        }
 
                         PlayerService.startActionStart(getActivity());
                     }
                     else {
-                        playerInfo.setText("Oops...\nsembra che tu non sia connesso alla rete!");
+                        playerInfo.setText("Sembra che tu non sia connesso alla rete!");
                         playerInfo.setTextColor(Color.RED);
                     }
                 }
+                else if(PlayerService.isLoading()) {setLoadingButton();}
                 else {
                     setPlayButton();
                     PlayerService.startActionStop(getActivity());

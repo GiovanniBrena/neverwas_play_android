@@ -34,7 +34,8 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="title"
             android:id="@+id/programTitle"
-            android:gravity="center_vertical" />
+            android:gravity="center_vertical"
+            android:textColor="#000000" />
 
     </LinearLayout>
 </LinearLayout>

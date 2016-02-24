@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    tools:context="com.neverwasradio.neverwasplayer.UI.Activities.MainMenuActivity"
+    android:background="#ffffff">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center_horizontal"
+        android:visibility="visible"
+        android:measureWithLargestChild="false"
+        android:weightSum="1.25"
+        android:background="#383838">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/imageView2"
+            android:layout_weight="0.25"
+            android:src="@drawable/nwr_logo_new"
+            android:layout_marginTop="16dp" />
+
+        <com.neverwasradio.neverwasplayer.UI.CustomView.MenuSection
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/menuSectionPlayer"
+            android:background="#99ceff"
+            app:menuSectionBackground="#33b5e5"
+            app:menuSectionDimension="24sp"
+            app:menuSectionIcon="@android:drawable/ic_menu_add"
+            app:menuSectionSquare="false"
+            app:menuSectionLabel="Prova"
+            android:visibility="visible"
+            android:layout_weight="0.5"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="8dp" />
+
+        <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+            android:visibility="visible"
+            android:layout_weight="0.25"
+            android:gravity="center_horizontal">
+
+        <com.neverwasradio.neverwasplayer.UI.CustomView.MenuSection
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/menuSectionTimetable"
+            android:layout_weight="0.5"
+            android:background="#99ceff"
+            android:paddingBottom="40dp"
+            android:paddingLeft="20dp"
+            app:menuSectionBackground="#33b5e5"
+            app:menuSectionDimension="24sp"
+            app:menuSectionIcon="@android:drawable/ic_menu_add"
+            app:menuSectionSquare="true"
+            app:menuSectionLabel="Prova"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp" />
+
+        <com.neverwasradio.neverwasplayer.UI.CustomView.MenuSection
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/menuSectionNews"
+            android:layout_weight="0.5"
+            android:background="#99ceff"
+            android:paddingBottom="40dp"
+            android:paddingLeft="20dp"
+            app:menuSectionBackground="#33b5e5"
+            app:menuSectionDimension="24sp"
+            app:menuSectionIcon="@android:drawable/ic_menu_add"
+            app:menuSectionSquare="true"
+            app:menuSectionLabel="Prova"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="8dp" />
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1"
+            android:visibility="visible"
+            android:layout_weight="0.25"
+            android:gravity="center_horizontal">
+
+            <com.neverwasradio.neverwasplayer.UI.CustomView.MenuSection
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/menuSectionChat"
+                android:layout_weight="0.5"
+                android:background="#99ceff"
+                android:paddingBottom="40dp"
+                android:paddingLeft="20dp"
+                app:menuSectionBackground="#33b5e5"
+                app:menuSectionDimension="24sp"
+                app:menuSectionIcon="@android:drawable/ic_menu_add"
+                app:menuSectionSquare="true"
+                app:menuSectionLabel="Prova"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="16dp" />
+
+            <com.neverwasradio.neverwasplayer.UI.CustomView.MenuSection
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/menuSectionSocial"
+                android:layout_weight="0.5"
+                android:background="#99ceff"
+                android:paddingBottom="40dp"
+                android:paddingLeft="20dp"
+                app:menuSectionBackground="#33b5e5"
+                app:menuSectionDimension="24sp"
+                app:menuSectionIcon="@android:drawable/ic_menu_add"
+                app:menuSectionSquare="true"
+                app:menuSectionLabel="Prova"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="8dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

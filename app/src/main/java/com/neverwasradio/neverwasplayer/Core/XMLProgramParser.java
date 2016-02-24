@@ -55,13 +55,11 @@ public class XMLProgramParser
         }
 
         else {
-            System.out.println("Number of elements found: "+n);
             for(int i=0; i<n;i++)
             {
 
                 NWProgram p = new NWProgram(descNodes.item(i));
                 programList.add(p);
-                System.out.println("Added element: "+p.toString());
 
             }
         }

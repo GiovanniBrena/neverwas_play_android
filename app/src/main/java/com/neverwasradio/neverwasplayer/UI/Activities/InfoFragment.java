@@ -7,15 +7,25 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.neverwasradio.neverwasplayer.Core.ConnectionHandler;
+import com.neverwasradio.neverwasplayer.Model.NWPost;
 import com.neverwasradio.neverwasplayer.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created by chiara on 13/08/15.
@@ -25,6 +35,10 @@ public class InfoFragment extends Fragment {
 
     ImageView fbIcon, twIcon, instaIcon;
     Button websiteButton, emailButton;
+
+
+    EditText nameField, textField;
+    Button sendMessageButton;
 
 
     public static InfoFragment newInstance() {
@@ -52,6 +66,11 @@ public class InfoFragment extends Fragment {
         fbIcon = (ImageView) rootView.findViewById(R.id.fbIcon);
         twIcon = (ImageView) rootView.findViewById(R.id.twIcon);
         instaIcon = (ImageView) rootView.findViewById(R.id.instaIcon);
+
+
+        nameField = (EditText) rootView.findViewById(R.id.message_name);
+        textField = (EditText) rootView.findViewById(R.id.message_text);
+        sendMessageButton = (Button) rootView.findViewById(R.id.message_send);
 
         initListeners();
 
@@ -150,9 +169,61 @@ public class InfoFragment extends Fragment {
             }
         });
 
+
+
+
+        sendMessageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SendChatMessage sendChatMessage = new SendChatMessage();
+                String[] params = new String[2];
+                params[0] = nameField.getText().toString();
+                params[1] = textField.getText().toString();
+                sendChatMessage.execute(params);
+            }
+        });
+
     }
 
 
+
+    private class SendChatMessage extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            String url = "http://www.mpwebtest.altervista.org/nw-play/send-mex.php";
+
+            String name = params[0];
+            String text = params[1];
+
+            name = sanitizeUrlString(name);
+            text = sanitizeUrlString(text);
+
+            url = url + "?name=" + name + "&text=" + text;
+
+            try {
+                ConnectionHandler.sendMessageToChat(url);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return "Executed";
+        }
+    }
+
+
+    private String sanitizeUrlString(String s) {
+        s=s.replace("(", "");
+        s=s.replace(")", "");
+        s=s.replace("[", "");
+        s=s.replace("]", "");
+        s=s.replace("&", "and");
+        s=s.replace("%", "perc");
+        s=s.replace("$", "dollar");
+        s=s.replace(" ", "%20");
+        return s;
+    }
 
 
 

@@ -1,7 +1,6 @@
 package com.neverwasradio.neverwasplayer.UI.Activities;
 
 import java.util.Locale;
-
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
@@ -13,43 +12,39 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ListView;
-import android.widget.TextView;
-
-import com.facebook.FacebookSdk;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.neverwasradio.neverwasplayer.Core.PlayerService;
-import com.neverwasradio.neverwasplayer.Core.XMLProgramParser;
+import com.neverwasradio.neverwasplayer.Core.StreamingDataLoader;
 import com.neverwasradio.neverwasplayer.R;
+import com.neverwasradio.neverwasplayer.UI.CustomView.CustomMenuTab;
 
-public class MainActivity extends Activity implements ActionBar.TabListener {
+public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
 
 
     SectionsPagerAdapter mSectionsPagerAdapter;
     ViewPager mViewPager;
 
-    PlayerFragment playerFragment;
-    InfoFragment infoFragment;
-    ProgramFragment programFragment;
-    NewsFragment newsFragment;
+    public static PlayerFragment playerFragment;
+    static InfoFragment infoFragment;
+    static ProgramFragment programFragment;
+    static NewsFragment newsFragment;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FacebookSdk.sdkInitialize(getApplicationContext());
-
         // Set up the action bar.
         final ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -58,6 +53,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+
 
         // When swiping between different sections, select the corresponding
         // tab. We can also use ActionBar.Tab#select() to do this if we have
@@ -77,9 +73,13 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
             // this tab is selected.
             actionBar.addTab(
                     actionBar.newTab()
-                            .setText(mSectionsPagerAdapter.getPageTitle(i))
+                            .setCustomView(new CustomMenuTab(this, i, mSectionsPagerAdapter.getPageTitle(i).toString()))
                             .setTabListener(this));
         }
+
+        StreamingDataLoader dataLoader = new StreamingDataLoader();
+        dataLoader.execute();
+
     }
 
     @Override
@@ -124,10 +124,14 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
         // When the given tab is selected, switch to the corresponding page in
         // the ViewPager.
         mViewPager.setCurrentItem(tab.getPosition());
+        CustomMenuTab tabView = (CustomMenuTab) tab.getCustomView();
+        tabView.setTabSelected(true);
     }
 
     @Override
     public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+        CustomMenuTab tabView = (CustomMenuTab) tab.getCustomView();
+        tabView.setTabSelected(false);
     }
 
     @Override
@@ -153,6 +157,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
                 case 1:
                     if(programFragment==null) { programFragment=ProgramFragment.newInstance();}
                     return programFragment;
+
                 case 2:
                     if(newsFragment==null) { newsFragment=NewsFragment.newInstance();}
                     return newsFragment;
